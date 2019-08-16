@@ -84,7 +84,8 @@ def add_feature():
 
             data = {
                 "title": title,
-                "description": description
+                "description": description,
+                "vote" : 1
             }
 
             print("saving data")

@@ -6,17 +6,45 @@
   <h1>Features</h1>
 </div>
 
-<h3>Add a feature</h3>
-<form action="{{ url_for('add_feature') }}" method="post">
-  <input type="text" name="title" placeholder="Enter a title .." /><br/>
-  <input type="text" name="description" placeholder="Enter a description .." /><br/>
-  <input type="submit" />
-</form>
+<div class="card">
+  <h3>Add a feature</h3>
+  <form class="custom-form" action="{{ url_for('add_feature') }}" method="post">
+    <div class="form-group">
+      <label>Title</label><br/>
+      <input type="text" name="title" placeholder="Enter a title .." />
+    </div>
+    <div class="form-group">
+      <label>Description</label><br/>
+      <input type="text" name="description" placeholder="Enter a description .." />
+    </div>
+    <div class="form-group">
+      <input class="btn btn-primary" type="submit" />
+    </div>
+  </form>
+</div>
+
 
 {% for feature_id, feature_values in features.items() %}
-<br/>
-<h1>{{ feature_values['title'] }}</h1>
-<h2>{{ feature_values['description'] }}</h2>
-<br/>
+<br />
+<div class="card">
+  <div class="row">
+    <div class="col-md-1">
+      <form method="post" action="{{ url_for('upvote', type="feature", id=bug_id) }}">
+        <input class="btn btn-block btn-success" value="upvote" type="submit" />
+      </form>
+      <form method="post" action="{{ url_for('downvote', type="feature", id=bug_id) }}">
+        <input class="btn btn-block btn-warning" value="downvote" type="submit" />
+      </form>
+    </div>
+    <div class="col-md-1">
+      <h2>{{ feature_values['vote'] }}</h2>
+    </div>
+    <div class="col-md-10">
+      <h4>{{ feature_values['title'] }}</h4>
+      <p>{{ feature_values['description'] }}</p>
+    </div>
+  </div>
+</div>
+<br />
 {% endfor %}
 {% endblock %}
