@@ -1,0 +1,22 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Features{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Features</h1>
+</div>
+
+<h3>Add a feature</h3>
+<form action="{{ url_for('add_feature') }}" method="post">
+  <input type="text" name="title" placeholder="Enter a title .." /><br/>
+  <input type="text" name="description" placeholder="Enter a description .." /><br/>
+  <input type="submit" />
+</form>
+
+{% for feature_id, feature_values in features.items() %}
+<br/>
+<h1>{{ feature_values['title'] }}</h1>
+<h2>{{ feature_values['description'] }}</h2>
+<br/>
+{% endfor %}
+{% endblock %}

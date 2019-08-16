@@ -33,4 +33,31 @@ a {
  * Various other styles
  ****************************************************************************/
 
+ .card {
+   padding: 20px;
+   margin: 10px;
+   border-radius: 10px;
+  -webkit-box-shadow: 9px 10px 81px -27px rgba(56,136,206,0.93) !important;
+  -moz-box-shadow: 9px 10px 81px -27px rgba(56,136,206,0.93) !important;
+  box-shadow: 9px 10px 81px -27px rgba(56,136,206,0.93) !important;
+ }
+
+ .custom-form input[type="text"]{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    width: 100%;
+    padding: 20px;
+    font-size: 45px;
+ }
+
+ .custom-form input[type="text"]:active{
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  width: 100%;
+  padding: 20px;
+  font-size: 45px;
+}
+
 /* Various other styles end */
