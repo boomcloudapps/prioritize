@@ -23,7 +23,7 @@
   </form>
 </div>
 
-
+{% if features %}
 {% for feature_id, feature_values in features.items() %}
 <br />
 <div class="card">
@@ -47,4 +47,5 @@
 </div>
 <br />
 {% endfor %}
+{% endif %}
 {% endblock %}
