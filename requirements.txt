@@ -44,7 +44,6 @@ requests==2.11.1
 requests-toolbelt==0.7.0
 rsa==4.0
 SQLAlchemy==1.2.12
-vboxapi==1.0
 virtualenv==16.0.0
 Werkzeug==0.14.1
 WTForms==2.2.1
