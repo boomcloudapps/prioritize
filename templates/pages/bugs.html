@@ -38,9 +38,17 @@
     <div class="col-md-1">
       <h2>{{ bug_value['vote'] }}</h2>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-8">
       <h4>{{ bug_value['title'] }}</h4>
       <p>{{ bug_value['description'] }}</p>
+    </div>
+    <div class="col-md-1">
+      <a href="{{ url_for('edit', id=bug_id, type="bug") }}">Edit</a>
+    </div>
+    <div class="col-md-1">
+      <form action="{{url_for('remove_bug', id=bug_id)}}" method="post">
+        <input type="submit" class="btn btn-warning" value="Delete" />
+      </form>
     </div>
   </div>
 </div>

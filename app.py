@@ -17,7 +17,7 @@ import pyrebase
 
 app = Flask(__name__)
 app.config.from_object('config')
-#db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -85,7 +85,7 @@ def add_feature():
             data = {
                 "title": title,
                 "description": description,
-                "vote" : 1
+                "vote": 1
             }
 
             print("saving data")
@@ -101,15 +101,17 @@ def add_feature():
     return redirect(url_for('features'))
 
 
-@app.route('/remove-feature')
-def remove_features():
+@app.route('/remove-feature', methods=['GET', 'POST'])
+def remove_feature():
+    id = request.args.get("id")
+
     if request.method == 'POST':
         try:
             print("inside try")
 
-            id = request.args.get("id")
-
+            print("deleting")
             db.child("features").child(id).remove()
+            print("successfully deleted")
 
             return redirect(url_for('features'))
 
@@ -128,7 +130,7 @@ def bugs():
     return render_template('pages/bugs.html', bugs=bugs)
 
 
-@app.route('/add-bug', methods=['POST'])
+@app.route('/add-bug', methods=['GET', 'POST'])
 def add_bug():
     if request.method == 'POST':
         try:
@@ -140,7 +142,7 @@ def add_bug():
             data = {
                 "title": title,
                 "description": description,
-                "vote" : 1
+                "vote": 1
             }
 
             print("saving data")
@@ -156,15 +158,16 @@ def add_bug():
     return redirect(url_for('bugs'))
 
 
-@app.route('/remove-bug')
+@app.route('/remove-bug', methods=['GET', 'POST'])
 def remove_bug():
+    id = request.args.get("id")
     if request.method == 'POST':
         try:
             print("inside try")
 
-            data = {
-
-            }
+            print("deleting")
+            db.child("bugs").child(id).remove()
+            print("successfully deleted")
 
             return redirect(url_for('bugs'))
 
@@ -262,6 +265,50 @@ def downvote():
                 print(e)
                 return redirect(url_for('bugs'))
     return redirect(url_for('bugs'))
+
+
+@app.route('/edit', methods=['GET', 'POST'])
+def edit():
+    id = request.args.get("id")
+    print(id)
+    
+    type = request.args.get("type")
+    print(type)
+
+    if type == 'feature':
+        content = db.child("features").child(id).get().val()
+    else:
+        content = db.child("bugs").child(id).get().val()
+
+    if request.method == 'POST':
+
+        try:
+            print("inside try")
+
+            title = request.form['title']
+            description = request.form['description']
+            vote = content['vote']
+
+            data = {
+                "title": title,
+                "description": description,
+                "vote": vote
+            }
+
+            if type == 'feature':
+                db.child("features").child(id).update(data)
+                return redirect(url_for('features'))
+            else:
+                db.child("bugs").child(id).update(data)
+                return redirect(url_for('bugs'))
+
+        except Exception as e:
+            print(e)
+            error = e
+            return render_template('pages/edit.html', type=type, id=id, error=error, content=content)
+
+    return render_template('pages/edit.html', type=type, id=id, content=content)
+
 
 # Error handlers.
 
